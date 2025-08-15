@@ -464,7 +464,7 @@ For questions, issues, or contributions:
 - **Repository**: [GitHub Repository URL]
 - **Issues**: [GitHub Issues Page]
 - **Documentation**: [Documentation URL]
-- **Support**: [Support Email/Contact]
+- **Support**: [huongvu.020904@gmail.com]
 
 ---
 
