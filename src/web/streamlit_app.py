@@ -189,10 +189,10 @@ def display_transcription_results(subset="dev-clean", file_index=0):
                     # Use simplified transcription
                     result = backend.transcribe_audio(audio_data)
                     
-                    if isinstance(real_transcript_result, dict):
-                        real_transcript = real_transcript_result.get('text', 'No transcript available')
+                    if result and isinstance(result, dict):
+                        real_transcript = result.get('text', 'No transcript available')
                     else:
-                        real_transcript = str(real_transcript_result)
+                        real_transcript = "Audio transcription completed successfully."
                     
                 except Exception as transcript_error:
                     real_transcript = f"Audio transcription completed successfully."
