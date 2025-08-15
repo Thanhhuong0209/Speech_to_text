@@ -165,39 +165,29 @@ def display_word_confidence():
     st.markdown(f'<div class="transcription-box">{word_html}</div>', unsafe_allow_html=True)
 
 def display_transcription_results(subset="dev-clean", file_index=0):
-    """Display transcription results using COMPLETE backend integration"""
+    """Display transcription results using SIMPLIFIED backend"""
     st.success("LibriSpeech processing completed!")
     
     try:
-        # Import ALL existing components
-        import sys
-        import os
+        # Use simplified backend
+        from backend import get_backend
         
-        # Add project root to Python path
-        project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        sys.path.insert(0, project_root)
+        backend = get_backend()
         
-        from src.data.librispeech_ingester import LibriSpeechIngester
-        from src.core.stt_engine import STTEngine
-        from src.core.audio_processor import AudioProcessor
-        
-        # Create COMPLETE backend pipeline
-        
-        # 1. Initialize LibriSpeech Ingester directly (bypass STT engine issues)
-        ingester = LibriSpeechIngester()
-        
-        # 4. Get REAL LibriSpeech sample with FULL processing
-        
+        # Get REAL LibriSpeech sample with SIMPLIFIED processing
         import asyncio
         
         async def process_real_sample():
             try:
                 # Get REAL audio data first
+                from src.data.librispeech_ingester import LibriSpeechIngester
+                ingester = LibriSpeechIngester()
                 audio_data = await ingester.download_real_librispeech_audio(subset, file_index)
                 
-                # Get transcript from audio file
+                # Get transcript from audio file using simplified backend
                 try:
-                    real_transcript_result = await ingester.transcribe_real_audio(subset, file_index)
+                    # Use simplified transcription
+                    result = backend.transcribe_audio(audio_data)
                     
                     if isinstance(real_transcript_result, dict):
                         real_transcript = real_transcript_result.get('text', 'No transcript available')
