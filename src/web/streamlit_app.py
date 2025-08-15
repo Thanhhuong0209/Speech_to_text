@@ -292,7 +292,7 @@ def display_transcription_results(subset="dev-clean", file_index=0):
             st.error(f"Audio display error: {str(audio_error)}")
         
         # Display transcript below audio
-        st.subheader("Văn bản được dịch")
+        st.subheader("Translated Text")
         st.write(result['text'])
         
     except Exception as e:
